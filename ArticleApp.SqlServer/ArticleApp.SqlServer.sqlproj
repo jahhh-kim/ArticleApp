@@ -57,4 +57,10 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Articles.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ArticleApp.SqlServer.publish.xml" />
+  </ItemGroup>
 </Project>
