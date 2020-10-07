@@ -7,6 +7,9 @@ CREATE TABLE [dbo].[Articles]
 
 	[Content] NVarChar(Max) Null, 
 
+	[IsPinned] Bit Null Default(0), -- 공지글로 올리기
+
+
 	[CreatedBy] NVarChar(255) Null,
 	[Created] DateTime Default(GetDate()),
 	[ModifiedBy]  NVarChar(255) Null,

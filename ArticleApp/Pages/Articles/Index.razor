@@ -22,6 +22,17 @@
 else
 {
     <MatButton Label="Create" Link="/Articles/Create" Outlined="true" Style="background-color:darkgreen ; color:aliceblue; font-size:medium"></MatButton>
+    <AuthorizeView>
+        <Authorized>
+
+        </Authorized>
+        <NotAuthorized>
+            <MatButton Label="Manage" Link="/Articles/Manage" Outlined="true" Style="background-color:darkgreen ; color:aliceblue; font-size:medium"></MatButton>
+        </NotAuthorized>
+    </AuthorizeView>
+    <AuthorizeView Roles="Administrators, Managers">
+        <MatButton Label="Manage" Link="/Articles/Manage" Outlined="true" Style="background-color:darkgreen ; color:aliceblue; font-size:medium"></MatButton>
+    </AuthorizeView>
 
     <table class="table table-active table-hover table-dark">
         <thead class="thead-dark">

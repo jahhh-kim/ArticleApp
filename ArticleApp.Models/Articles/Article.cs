@@ -23,8 +23,11 @@ namespace ArticleApp.Models
 
         [Required(ErrorMessage ="내용을 입력하세요")] //필수입력 요소 : NULL 값을 허용하지 않아야 함을 강력하게 요청 ,System.ComponentModel.DataAnnotations 여기들어있음
         public string Content { get; set; }
-
-
+        
+        /// <summary>
+        ///  공지글로 올리기
+        /// </summary>
+        public bool IsPinned { get; set; } = false;
 
     }
 }
