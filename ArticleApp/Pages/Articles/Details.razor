@@ -1,0 +1,59 @@
+﻿@page "/Articles/Details/{Id:int}"
+@inject NavigationManager NavigationManager
+
+@inject IArticleRepository repository
+
+<h3>Details</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <EditForm Model="Model">
+                <div class="form-group">
+
+                    <MatTextField Label="ID" @bind-Value="@Model.Id" Class="alert-dark" FullWidth="true"></MatTextField>
+
+                </div>
+                <div class="form-group">
+                    <MatTextField Label="Title" @bind-Value="@Model.Title" Class="alert-dark" FullWidth="true"></MatTextField>
+                  
+                </div>
+                <div class="form-group">
+                    <MatTextField Label="Content" @bind-Value="@Model.Content" Class="alert-dark" FullWidth="true"></MatTextField>
+             
+                </div>
+
+                <div class="form-group">
+                    <MatButton Type="submit" Raised="true" OnClick="@Edit_btn">Edit</MatButton>
+                    <MatButton Type="submit" Raised="true" OnClick="@Delete_btn">Delete</MatButton>
+                    <MatButton Type="submit" Link="/Articles" Raised="true" Style="background-color:brown">List</MatButton>
+                </div>
+            </EditForm>
+
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public Article Model { get; set; } = new Article();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await repository.GetArticleByIdAsync(Id);
+    }
+    protected async Task Delete_btn()
+    {
+         NavigationManager.NavigateTo($"/Articles/Delete/{Id}");
+    }
+    protected async Task Edit_btn()
+    {
+         NavigationManager.NavigateTo($"/Articles/Edit/{Id}");
+    }
+}
+

@@ -1,0 +1,65 @@
+﻿@page "/Articles/Edit/{Id:int}"
+
+@inject NavigationManager NavigationManager
+@inject IArticleRepository repository
+
+<h3>Edit</h3>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <EditForm Model="Model" OnValidSubmit="btnEdit_Click">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <ValidationSummary></ValidationSummary>
+
+                <div class="form-group">
+                    <MatTextField Label="ID" @bind-Value="@Model.Id" Class="alert-dark" FullWidth="true"></MatTextField>
+                </div>
+
+                <div class="form-group">
+                    <MatTextField Label="Title" @bind-Value="@Model.Title" Class="alert-dark" FullWidth="true"></MatTextField>
+                    <ValidationMessage For="@(()=>Model.Title)" class="form-text text-muted"></ValidationMessage>
+                </div>
+
+                <div class="form-group">
+                    <MatTextField Label="Content" TextArea="true" @bind-Value="@Model.Content" Class="alert-dark" FullWidth="true"></MatTextField>
+                    <ValidationMessage For="@(()=>Model.Title)" class="form-text text-muted"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <MatButton Type="submit" Raised="true">Submit</MatButton>
+                    <MatButton Type="button" Link="/Articles" Raised="true" Style="background-color:brown">List</MatButton>
+                </div>
+
+            </EditForm>
+
+        </div>
+    </div>
+</div>
+
+<hr />
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    public Article Model { get; set; } = new Article();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await repository.GetArticleByIdAsync(Id);
+    }
+
+
+    protected async Task btnEdit_Click()
+    {
+        //저장 로직
+        await repository.EditArticleAsync(Model);
+
+        //상세보기 페이지로 이동
+        NavigationManager.NavigateTo($"/Articles/Details/{Id}");
+    }
+
+
+}
